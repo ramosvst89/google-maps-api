@@ -3,7 +3,7 @@ var markers = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10
+        zoom: 16
     });
 
     // Adicionar um marcador para a própria posição
