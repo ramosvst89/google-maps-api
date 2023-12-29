@@ -1,22 +1,15 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Mapa</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Mapa de Usuários</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Inclua a chave da API do Google Maps abaixo -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24tJ0C4F_m-Diq1O9YvO7zZ54ttUG-oI&callback=initMap" async defer></script>
 </head>
 <body>
-
-    <div class="map-container" id="map"></div>
-
-    <div class="form-container">
-        <label for="nome">Seu Nome:</label>
-        <input type="text" id="nome" placeholder="Digite seu nome">
-        <button onclick="adicionarUsuario()">Adicionar</button>
-    </div>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24tJ0C4F_m-Diq1O9YvO7zZ54ttUG-oI&callback=initMap" async defer></script>
-    <script src="script.js"></script>
+    <div id="map"></div>
+    <script src="js/script.js"></script>
 </body>
 </html>
