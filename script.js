@@ -1,23 +1,43 @@
+var map;
+var markers = [];
+
 function initMap() {
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var minhaPosicao = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: -23.5505, lng: -46.6333 }, // Centralizar em São Paulo, por exemplo
+        zoom: 10
+    });
 
-        var mapa = new google.maps.Map(document.getElementById('map'), {
-            center: minhaPosicao,
-            zoom: 16
-        });
+    // Adicionar um marcador para a própria posição
+    adicionarMarcadorMinhaPosicao();
 
-        var marcador = new google.maps.Marker({
-            position: minhaPosicao,
-            map: mapa,
-            title: 'Minha Posição'
-        });
-    }, function() {
+    // Adicionar um novo marcador para cada usuário que acessa o site
+    adicionarMarcadorUsuario();
+}
+
+function adicionarMarcadorMinhaPosicao() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+        adicionarMarcador(position.coords.latitude, position.coords.longitude, 'Minha Posição');
+    }, function () {
         handleLocationError(true);
     });
+}
+
+function adicionarMarcadorUsuario() {
+    // Adicione código aqui para obter a localização do usuário (pode ser por meio de um servidor)
+    // Exemplo fictício:
+    var usuarioLatitude = -23.5605;
+    var usuarioLongitude = -46.6203;
+    adicionarMarcador(usuarioLatitude, usuarioLongitude, 'Outro Usuário');
+}
+
+function adicionarMarcador(lat, lng, titulo) {
+    var marcador = new google.maps.Marker({
+        position: { lat: lat, lng: lng },
+        map: map,
+        title: titulo
+    });
+
+    markers.push(marcador);
 }
 
 function handleLocationError(browserHasGeolocation) {
