@@ -25,8 +25,8 @@ function adicionarMarcadorMinhaPosicao() {
 function adicionarMarcadorUsuario() {
     // Adicione código aqui para obter a localização do usuário (pode ser por meio de um servidor)
     // Exemplo fictício:
-    var usuarioLatitude = -23.5605;
-    var usuarioLongitude = -46.6203;
+   // var usuarioLatitude = -23.5605;
+    //var usuarioLongitude = -46.6203;
     adicionarMarcador(usuarioLatitude, usuarioLongitude, 'Outro Usuário');
 }
 
