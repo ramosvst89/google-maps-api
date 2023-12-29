@@ -3,31 +3,32 @@ var markers = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-       // center: { lat: -23.5505, lng: -46.6333 }, // Centralizar em São Paulo, por exemplo
         zoom: 10
     });
 
     // Adicionar um marcador para a própria posição
     adicionarMarcadorMinhaPosicao();
-
-    // Adicionar um novo marcador para cada usuário que acessa o site
-    adicionarMarcadorUsuario();
 }
 
 function adicionarMarcadorMinhaPosicao() {
-    navigator.geolocation.getCurrentPosition(function (position) {
-        adicionarMarcador(position.coords.latitude, position.coords.longitude, 'Minha Posição');
-    }, function () {
-        handleLocationError(true);
-    });
-}
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var minhaPosicao = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
 
-function adicionarMarcadorUsuario() {
-    // Adicione código aqui para obter a localização do usuário (pode ser por meio de um servidor)
-    // Exemplo fictício:
-   // var usuarioLatitude = -23.5605;
-    //var usuarioLongitude = -46.6203;
-    adicionarMarcador(usuarioLatitude, usuarioLongitude, 'Outro Usuário');
+            map.setCenter(minhaPosicao);
+
+            // Adicionar marcador
+            adicionarMarcador(minhaPosicao.lat, minhaPosicao.lng, 'Minha Posição');
+        }, function () {
+            handleLocationError(true);
+        });
+    } else {
+        // Browser não suporta geolocalização
+        handleLocationError(false);
+    }
 }
 
 function adicionarMarcador(lat, lng, titulo) {
@@ -40,8 +41,8 @@ function adicionarMarcador(lat, lng, titulo) {
     markers.push(marcador);
 }
 
-function handleLocationError(browserHasGeolocation) {
-    var erro = browserHasGeolocation ?
+function handleLocationError(geolocationAvailable) {
+    var erro = geolocationAvailable ?
         'Erro: O serviço de geolocalização falhou.' :
         'Erro: Seu navegador não suporta geolocalização.';
     alert(erro);
