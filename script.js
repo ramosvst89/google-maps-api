@@ -1,18 +1,52 @@
-// js/script.js
-
-// Função para inicializar o mapa
 function initMap() {
-    // Configurações iniciais do mapa
-    var mapOptions = {
-       // center: { lat: -23.550520, lng: -46.633307 }, // Coordenadas iniciais (pode ser qualquer lugar)
-        zoom: 16, // Nível de zoom inicial
-    };
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var minhaLocalizacao = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
 
-    // Criação do mapa
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            var mapOptions = {
+                zoom: 15,
+                center: minhaLocalizacao
+            };
 
-    // Adicione seu código para obter a localização dos usuários e marcá-los no mapa aqui
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: minhaLocalizacao,
+                map: map,
+                title: 'Sua Localização'
+            });
+        }, function() {
+            handleLocationError(true);
+        });
+    } else {
+        handleLocationError(false);
+    }
 }
 
-// Chamada para a função de inicialização do mapa quando a página carrega
+function handleLocationError(browserHasGeolocation) {
+    var mensagem = browserHasGeolocation ?
+                    'Erro: A Geolocalização falhou.' :
+                    'Erro: Seu navegador não suporta Geolocalização.';
+
+    alert(mensagem);
+
+    var minhaLocalizacao = { lat: -23.5505, lng: -46.6333 };
+
+    var mapOptions = {
+        zoom: 16,
+        center: minhaLocalizacao
+    };
+
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+        position: minhaLocalizacao,
+        map: map,
+        title: 'Sua Localização'
+    });
+}
+
 google.maps.event.addDomListener(window, 'load', initMap);
