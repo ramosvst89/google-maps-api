@@ -3,7 +3,7 @@ var markers = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16
+        zoom: 10
     });
 
     // Adicionar um marcador para a própria posição
@@ -22,6 +22,32 @@ function adicionarMarcadorMinhaPosicao() {
 
             // Adicionar marcador
             adicionarMarcador(minhaPosicao.lat, minhaPosicao.lng, 'Minha Posição');
+        }, function () {
+            handleLocationError(true);
+        });
+    } else {
+        // Browser não suporta geolocalização
+        handleLocationError(false);
+    }
+}
+
+function adicionarUsuario() {
+    var nome = document.getElementById('nome').value;
+    
+    if (nome.trim() === "") {
+        alert("Por favor, insira seu nome.");
+        return;
+    }
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var usuarioPosicao = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+
+            // Adicionar marcador com nome do usuário
+            adicionarMarcador(usuarioPosicao.lat, usuarioPosicao.lng, nome);
         }, function () {
             handleLocationError(true);
         });
