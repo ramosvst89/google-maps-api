@@ -4,8 +4,8 @@
 function initMap() {
     // Configurações iniciais do mapa
     var mapOptions = {
-        center: { lat: -23.550520, lng: -46.633307 }, // Coordenadas iniciais (pode ser qualquer lugar)
-        zoom: 10, // Nível de zoom inicial
+       // center: { lat: -23.550520, lng: -46.633307 }, // Coordenadas iniciais (pode ser qualquer lugar)
+        zoom: 16, // Nível de zoom inicial
     };
 
     // Criação do mapa
