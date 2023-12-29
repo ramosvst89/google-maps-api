@@ -3,7 +3,7 @@ var markers = [];
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -23.5505, lng: -46.6333 }, // Centralizar em São Paulo, por exemplo
+       // center: { lat: -23.5505, lng: -46.6333 }, // Centralizar em São Paulo, por exemplo
         zoom: 10
     });
 
