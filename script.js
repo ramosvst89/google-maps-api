@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var usuarios = []; // Array para armazenar informações sobre os usuários
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -21,7 +22,7 @@ function adicionarMarcadorMinhaPosicao() {
             map.setCenter(minhaPosicao);
 
             // Adicionar marcador
-            adicionarMarcador(minhaPosicao.lat, minhaPosicao.lng, 'Minha Posição');
+            adicionarMarcador(minhaPosicao.lat, minhaPosicao.lng, 'Minha Posição', true);
         }, function () {
             handleLocationError(true);
         });
@@ -47,7 +48,7 @@ function adicionarUsuario() {
             };
 
             // Adicionar marcador com nome do usuário
-            adicionarMarcador(usuarioPosicao.lat, usuarioPosicao.lng, nome);
+            adicionarMarcador(usuarioPosicao.lat, usuarioPosicao.lng, nome, false);
         }, function () {
             handleLocationError(true);
         });
@@ -57,7 +58,7 @@ function adicionarUsuario() {
     }
 }
 
-function adicionarMarcador(lat, lng, titulo) {
+function adicionarMarcador(lat, lng, titulo, minhaPosicao) {
     var marcador = new google.maps.Marker({
         position: { lat: lat, lng: lng },
         map: map,
@@ -65,6 +66,15 @@ function adicionarMarcador(lat, lng, titulo) {
     });
 
     markers.push(marcador);
+
+    if (!minhaPosicao) {
+        // Adicionar informações do usuário ao array
+        usuarios.push({
+            nome: titulo,
+            lat: lat,
+            lng: lng
+        });
+    }
 }
 
 function handleLocationError(geolocationAvailable) {
